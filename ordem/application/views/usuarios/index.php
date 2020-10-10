@@ -19,7 +19,24 @@
   </ol>
     </nav>
 
-          <!-- DataTales Example -->
+    <?php if($message = $this->session->flashdata('error')): ?>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
+                        <strong><?php echo $message  ?></strong>
+                        &nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+    <?php endif; ?>        
+            <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <a title="Cadastrar novo usuário" href="" class="btn btn-success btn-sm float-right"><i class="fas fa-user-plus"></i>&nbsp;Novo</a>

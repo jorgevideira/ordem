@@ -27,6 +27,7 @@ class Usuarios extends CI_Controller{
         //echo '<pre>';
         // print_r($data['usuarios']);
         //exit();
+
         $this->load->view('layout/header',$data);
         $this->load->view('usuarios/index');
         $this->load->view('layout/footer');
@@ -36,11 +37,40 @@ class Usuarios extends CI_Controller{
         
         if(!$usuario_id || !$this->ion_auth->user($usuario_id)->row()){
             
-            exit('Usuário não encontrado.');
+            $this->session->set_flashdata('error','Usuário não encontrado');
+            redirect('usuarios');
                 
         } else {
+                   
+         /*
+  * [first_name] => Admin
+    [last_name] => teste
+    [email] => admin@admin.com
+    [username] => administrator
+    [active] => 1
+    [perfil_usuario] => 1
+    [password] => 
+    [confirm_password] => 
+    [usuario_id] => 1
+              */
+             
+        //echo '<pre>';
+        // print_r($this->input->post());
+        // exit();
+        
                 
-             $data  = array(
+            $this->form_validation->set_rules('first_name','','trim|required');
+            $this->form_validation->set_rules('last_name','','trim|required');
+            $this->form_validation->set_rules('email','','trim|required|valid_email|callback_email_check');
+            $this->form_validation->set_rules('username','','trim|required|callback_username_check');
+            $this->form_validation->set_rules('password','Senha','min_length[5]|max_length[255]');
+            $this->form_validation->set_rules('confirm_password','Confirme','matches[password]');
+            if($this->form_validation->run()){
+                
+                exit('Validado');
+                
+            }else{
+                $data  = array(
             
                  'titulo' => 'Editar Usuário',
             
@@ -50,12 +80,45 @@ class Usuarios extends CI_Controller{
 
         );
          
-           
+                
+            $this->load->view('layout/header',$data);
+            $this->load->view('usuarios/edit');
+            $this->load->view('layout/footer');
+            }
+            
              
-        $this->load->view('layout/header',$data);
-        $this->load->view('usuarios/edit');
-        $this->load->view('layout/footer');
       }
         
     }
+    
+    public function email_check($email) {
+        
+        $usuario_id = $this->input->post('usuario_id');
+        
+        if($this->core_model->get_by_id('users', array('email' => $email, 'id !=' => $usuario_id))){
+            
+            $this->form_validation->set_message('email_check','Esse e-mail já existe');
+            
+            return FALSE;
+        
+       }else{
+           return TRUE;
+       }
+    }
+    
+    public function username_check($username) {
+        
+        $usuario_id = $this->input->post('usuario_id');
+        
+        if($this->core_model->get_by_id('users', array('username' => $username, 'id !=' => $usuario_id))){
+            
+            $this->form_validation->set_message('username_check','Esse usuário já existe');
+            
+            return FALSE;
+        
+       }else{
+           return TRUE;
+       }
+    }
 }
+

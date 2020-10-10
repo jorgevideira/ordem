@@ -26,30 +26,36 @@
             </div>
             <div class="card-body">
                 
-        <form>
+                <form method="POST" name="form_edit">
             <div class="form-group row">
                 
                 <div class="col-md-4">
                     <label> Nome </label>
                     <input type="text" class="form-control" name="first_name" placeholder="Seu nome" value="<?php echo $usuario->first_name; ?>">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <?php echo form_error('first_name','<small class="form-text text-danger">','</small>');?>
                 </div>
                 
                 <div class="col-md-4">
                     <label> Sobrenome </label>
                     <input type="text" class="form-control" name="last_name" placeholder="Seu sobrenome" value="<?php echo $usuario->last_name; ?>">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <?php echo form_error('last_name','<small class="form-text text-danger">','</small>');?>
                 </div>
                 
                 <div class="col-md-4">
                     <label> Email&nbsp;(Login) </label>
                     <input type="email" class="form-control" name="email" placeholder="Seu login" value="<?php echo $usuario->email; ?>">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <?php echo form_error('email','<small class="form-text text-danger">','</small>');?>
                 </div>
                 
             </div>
             
             <div class="form-group row">
+                
+                <div class="col-md-4">
+                    <label>Usuário</label>
+                    <input type="text" class="form-control" name="username" placeholder="Seu usuário" value="<?php echo $usuario->username; ?>">
+                    <?php echo form_error('username','<small class="form-text text-danger">','</small>');?>
+                </div>
                 
                 <div class="col-md-4">
                     
@@ -66,21 +72,32 @@
                     <label> Perfil de acesso </label>
                     <select class="form-control" name="perfil_usuario">
                         
-                        <option value="0"<?php echo ($perfil_usuario->id==2)?'selected' : '' ?>> Vendedor</option>
+                        <option value="2"<?php echo ($perfil_usuario->id==2)?'selected' : '' ?>> Vendedor</option>
                         <option value="1"<?php echo ($perfil_usuario->id ==1)?'selected' : '' ?>> Administrador </option>
                     </select>    
                 </div>
                 
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            
+            <div class="form-group row">
+                
+                <div class="col-md-6">
+                    <label>Senha</label>
+                    <input type="password" class="form-control" name="password" placeholder="Sua senha">
+                    <?php echo form_error('password','<small class="form-text text-danger">','</small>');?>
+                </div>
+                
+                <div class="col-md-6">
+                    <label>Confirme</label>
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirme sua senha">
+                    <?php echo form_error('confirm_password','<small class="form-text text-danger">','</small>');?>
+                </div>
+                
+                <input type="hidden" name="usuario_id" value="<?php echo $usuario->id ?>">
+                
             </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            
+            <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
           </form>
 
                       </div>
