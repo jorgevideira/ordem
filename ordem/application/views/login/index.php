@@ -30,11 +30,28 @@
             
     <?php endif; ?>
                   
+                  <?php if($message = $this->session->flashdata('info')): ?>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <strong><?php echo $message  ?></strong>
+                        &nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+    <?php endif; ?>
+                  
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Seja bem-vindo!</h1>
                   </div>
-                    <form class="user" name="form_index" method="POST">
+                    <form class="user" name="form_auth" method="POST" action="<?php echo base_url('login/auth'); ?>">
                     <div class="form-group">
                         <input type="email" name="email" class="form-control form-control-user" placeholder="Entre com seu e-mail...">
                     </div>
