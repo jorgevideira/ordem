@@ -49,18 +49,27 @@ class Sistema extends CI_Controller{
         $this->form_validation->set_rules('sistema_nome_fantasia','Nome Fantasia','required|min_length[1]|max_length[145]');
         $this->form_validation->set_rules('sistema_cnpj','CNPJ','required|exact_length[18]');
         $this->form_validation->set_rules('sistema_ie','Inscrição Estadual','required|min_length[1]|max_length[25]');
+        $this->form_validation->set_rules('sistema_telefone_fixo','Telefone fixo','max_length[25]');
         $this->form_validation->set_rules('sistema_telefone_movel','Celular','required|min_length[1]|max_length[25]');
         $this->form_validation->set_rules('sistema_email','E-mail','required|valid_email|min_length[1]|max_length[100]');
+        $this->form_validation->set_rules('sistema_site_url','Telefone fixo','max_length[100]');
         $this->form_validation->set_rules('sistema_cep','CEP','required|exact_length[9]');
         $this->form_validation->set_rules('sistema_endereco','Endereço','required|min_length[1]|max_length[145]');
-        $this->form_validation->set_rules('sistema_cidade','Cidade','required|min_length[1]|max_length[45]');
-        $this->form_validation->set_rules('sistema_estado','Estado','required|exact_length[2]');
-        $this->form_validation->set_rules('sistema_numero','Número','max_length[25]');
-        $this->form_validation->set_rules('sistema_txt_ordem_servico','Texto da ordem de serviço e venda','max_length[500]');
-        $this->form_validation->set_rules('sistema_complemento','Complemento','max_length[25]');
         $this->form_validation->set_rules('sistema_bairro','Bairro','max_length[25]');
+        $this->form_validation->set_rules('sistema_numero','Número','max_length[25]');
+        $this->form_validation->set_rules('sistema_complemento','Complemento','max_length[25]');
+        $this->form_validation->set_rules('sistema_cidade','Cidade','required|min_length[1]|max_length[45]');
+        $this->form_validation->set_rules('sistema_estado','UF','required|exact_length[2]');
+        $this->form_validation->set_rules('sistema_txt_ordem_servico','Texto da ordem de serviço e venda','max_length[500]');
         
-        if($this->form_validation->run()){
+        
+        
+        
+//          echo '<pre>';
+//        print_r($data['sistema']);
+//        exit();
+        
+        if ($this->form_validation->run()){
             
             /* 
    *[sistema_razao_social] => System ordem inc
@@ -81,9 +90,30 @@ class Sistema extends CI_Controller{
     [sistema_txt_ordem_servico] => 
              */
             
-            $data = element(
-                    array()
+            $data = elements(
+                    array(
+                        'sistema_razao_social',
+                        'sistema_nome_fantasia',
+                        'sistema_cnpj',
+                        'sistema_ie',
+                        'sistema_telefone_fixo',
+                        'sistema_telefone_movel',
+                        'sistema_email',
+                        'sistema_site_url',
+                        'sistema_cep',
+                        'sistema_endereco',
+                        'sistema_bairro',
+                        'sistema_numero',
+                        'sistema_complemento',
+                        'sistema_cidade',
+                        'sistema_estado',
+                        'sistema_txt_ordem_servico',
+
+                    ), $this->input->post()
                     );
+
+                    $this->core_model->update('sistema', $data, array('sistema_id' => 1));
+                    redirect('sistema');
             
         }else{
             //erro de validação

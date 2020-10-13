@@ -18,6 +18,40 @@
     <li class="breadcrumb-item active" aria-current="page"><?php echo $titulo; ?></li>
   </ol>
     </nav>
+            
+            <?php if($message = $this->session->flashdata('sucesso')): ?>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><?php echo $message  ?></strong>
+                        &nbsp;&nbsp;<i class="far fa-smile-wink"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+    <?php endif; ?>
+    <?php if($message = $this->session->flashdata('error')): ?>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
+                        <strong><?php echo $message  ?></strong>
+                        &nbsp;&nbsp;<i class="fas fa-exclamation-triangle"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+    <?php endif; ?>  
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -29,7 +63,7 @@
                 
                 <div class="col-md-3">
                     <label> Razão social </label>
-                    <input type="text" class="form-control form-control-user"name="sistema_razao_social" placeholder="Razão social" value="<?php echo $sistema->sistema_razao_social; ?>">
+                    <input type="text" class="form-control form-control-user" name="sistema_razao_social" placeholder="Razão social" value="<?php echo $sistema->sistema_razao_social; ?>">
                     <?php echo form_error('sistema_razao_social','<small class="form-text text-danger">','</small>');?>
                 </div>
                 
@@ -69,7 +103,7 @@
                 
                 <div class="col-md-3">
                     <label> E-mail de contato </label>
-                    <input type="email" class="form-control form-control-user" name="sistema_email" placeholder="E-mail de contato" value="<?php echo $sistema->sistema_email; ?>">
+                    <input type="text" class="form-control form-control-user" name="sistema_email" placeholder="E-mail de contato" value="<?php echo $sistema->sistema_email; ?>">
                     <?php echo form_error('sistema_email','<small class="form-text text-danger">','</small>');?>
                 </div>
                 
