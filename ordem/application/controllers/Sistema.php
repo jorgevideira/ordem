@@ -71,6 +71,10 @@ class Sistema extends CI_Controller{
         
         if ($this->form_validation->run()){
             
+                echo '<pre>';
+                print_r($this->input->post());
+                exit();
+            
             /* 
    *[sistema_razao_social] => System ordem inc
     [sistema_nome_fantasia] => sistema ordem now
