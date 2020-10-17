@@ -18,6 +18,12 @@ class Sistema extends CI_Controller{
         
         $data = array(
             'titulo' => 'Editar informações do sistema',
+            
+            'scripts' => array(
+                'vendor/mask/jquery.mask.min.js',
+                'vendor/mask/app.js',
+            ),
+            
             'sistema' => $this->core_model->get_by_id('sistema', array('sistema_id' => 1)),
         );
         
@@ -71,9 +77,9 @@ class Sistema extends CI_Controller{
         
         if ($this->form_validation->run()){
             
-                echo '<pre>';
-                print_r($this->input->post());
-                exit();
+//                echo '<pre>';
+//                print_r($this->input->post());
+//                exit();
             
             /* 
    *[sistema_razao_social] => System ordem inc
@@ -115,7 +121,8 @@ class Sistema extends CI_Controller{
 
                     ), $this->input->post()
                     );
-
+            
+                    $data = html_escape($data);
                     $this->core_model->update('sistema', $data, array('sistema_id' => 1));
                     redirect('sistema');
             
