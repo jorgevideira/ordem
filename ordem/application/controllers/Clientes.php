@@ -118,7 +118,7 @@ class Clientes extends CI_Controller{
         $data = html_escape($data);
         
         $this->core_model->insert('clientes', $data);
-        redirect("clientes");
+        redirect('clientes');
 
            }else{
                
@@ -194,28 +194,7 @@ class Clientes extends CI_Controller{
             $this->form_validation->set_rules('cliente_obs', '', 'max_length[500]');
          
            if($this->form_validation->run()){
-               /*
-    [cliente_nome] => Jorge
-    [cliente_sobrenome] => Borges
-    [cliente_cpf] => 404.697.698-58
-    [cliente_rg_ie] => 493427624
-    [cliente_email] => jorgevideiraribeirao@gmail.com
-    [cliente_telefone] => (16) 99462-7437
-    [cliente_celular] => (16) 99462-7437
-    [cliente_data_nascimento] => 2020-10-20
-    [cliente_cep] => 14150-100
-    [cliente_endereco] => João Gomes Rocha
-    [cliente_numero_endereco] => 39
-    [cliente_complemento] => Casa
-    [cliente_bairro] => Jd Irajá
-    [cliente_cidade] => Ribeirão Preto
-    [cliente_estado] => SP
-    [cliente_ativo] => 0
-    [cliente_obs] => 
-    [cliente_tipo] => 1
-    [cliente_id] => 1
-                */
-               
+          
         $data = elements(
                 array(
                     'cliente_nome',
