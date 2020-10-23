@@ -105,6 +105,17 @@ class Marcas extends CI_Controller{
           
             if($this->form_validation->run()){
                 
+                $marca_ativa = $this->input->post('marca_ativa');
+                
+                if ($this->db->table_exists('produtos')){
+                    
+                    if(marca_ativa == 0 && $this->core_model->get_by_id('produtos', array('produto_marca_id' => $marca_id, 'produto_ativo' =>1))){
+                        $this->session->set_flashdata('info', 'Esta marca não pode ser desativada, pois ela está sendo utilizada em Produtos');
+                        redirect('marcas');
+                    }
+                    
+                }
+                
                 
                $data = elements(
                     array(

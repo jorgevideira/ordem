@@ -105,6 +105,17 @@ class Categorias extends CI_Controller{
           
             if($this->form_validation->run()){
                 
+                $categoria_ativa = $this->input->post('categoria_ativa');
+                
+                if ($this->db->table_exists('produtos')){
+                    
+                    if(categoria_ativa == 0 && $this->core_model->get_by_id('produtos', array('produto_categoria_id' => $categoria_id, 'produto_ativo' =>1))){
+                        $this->session->set_flashdata('info', 'Esta categoria não pode ser desativada, pois ela está sendo utilizada em Produtos');
+                        redirect('categorias');
+                    }
+                    
+                }
+                
                 
                $data = elements(
                     array(

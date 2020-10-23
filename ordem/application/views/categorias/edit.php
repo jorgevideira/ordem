@@ -41,7 +41,7 @@
                 </div>
                                 
                 <div class="col-md-4">                     
-                    <label> Marca ativa </label>
+                    <label> Categoria ativa </label>
                     <select class="custom-select " name="categoria_ativa" >
                             
                         <option value="0" <?php echo ($categoria->categoria_ativa == 0 ? 'selected' : ''); ?>>Não</option>

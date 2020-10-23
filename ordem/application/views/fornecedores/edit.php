@@ -162,7 +162,7 @@
                 <div class="form-group row ">
                         
                     <div class="col-md-2">                     
-                    <label> Cliente ativo </label>
+                    <label> Fornecedor ativo </label>
                     <select class="custom-select " name="fornecedor_ativo" >
                             
                         <option value="0" <?php echo ($fornecedor->fornecedor_ativo == 0 ? 'selected' : ''); ?>>Não</option>
