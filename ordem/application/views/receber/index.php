@@ -76,7 +76,7 @@
             <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a title="Cadastrar nova conta" href="<?php echo base_url('pagar/add');?>" class="btn btn-success btn-sm float-right"><i class="fas fa-plus "></i>&nbsp;Nova</a>
+                <a title="Cadastrar nova conta" href="<?php echo base_url('receber/add');?>" class="btn btn-success btn-sm float-right"><i class="fas fa-plus "></i>&nbsp;Nova</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -84,7 +84,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Fornecedor</th>
+                      <th>Cliente</th>
                       <th>Valor da Conta</th>
                       <th>Data de vencimento</th>
                       <th>Data de pagamento</th>
@@ -93,26 +93,26 @@
                     </tr>
                   </thead>
                      <tbody>
-                      <?php foreach ($contas_pagar as $conta): ?>
+                      <?php foreach ($contas_receber as $conta): ?>
                     <tr>
-                      <td><?php echo $conta->conta_pagar_id ?></td>
-                      <td><?php echo  $conta->fornecedor ?></td>
-                      <td><?php echo 'R$&nbsp'.  $conta->conta_pagar_valor?></td>
-                      <td><?php echo formata_data_banco_sem_hora($conta->conta_pagar_data_vencimento); ?></td>
-                      <td><?php echo  ($conta-> conta_pagar_status == 1 ? formata_data_banco_com_hora($conta->conta_pagar_data_pagamento): 'Aguardando pagamento' ); ?></td>
+                      <td><?php echo $conta->conta_receber_id ?></td>
+                      <td><?php echo  $conta->cliente_nome_completo ?></td>
+                      <td><?php echo 'R$&nbsp'.  $conta->conta_receber_valor?></td>
+                      <td><?php echo formata_data_banco_sem_hora($conta->conta_receber_data_vencimento); ?></td>
+                      <td><?php echo  ($conta-> conta_receber_status == 1 ? formata_data_banco_com_hora($conta->conta_receber_data_pagamento): 'Aguardando pagamento' ); ?></td>
                       <td class="text-center pr-4">
                           
                           <?php
                           
-                          if($conta->conta_pagar_status == 1){
+                          if($conta->conta_receber_status == 1){
                               
                               echo '<span class="badge badge-success btn-sm ">Paga</span>';
                               
-                          }else if (strtotime ($conta->conta_pagar_data_vencimento) > strtotime (date('y-m-d')) ){
+                          }else if (strtotime ($conta->conta_receber_data_vencimento) > strtotime (date('y-m-d')) ){
                               
-                              echo '<span class="badge badge-secondary btn-sm ">À pagar</span>';
+                              echo '<span class="badge badge-secondary btn-sm ">À receber</span>';
                               
-                          }else if (strtotime ($conta->conta_pagar_data_vencimento) == strtotime (date('y-m-d')) ){
+                          }else if (strtotime ($conta->conta_receber_data_vencimento) == strtotime (date('y-m-d')) ){
                               
                               echo '<span class="badge badge-warning btn-sm ">Vence hoje</span>';  
                           }else{
@@ -125,12 +125,12 @@
                       
                       
                       <td class="text-right">
-                          <a title="Editar" href="<?php echo base_url('pagar/edit/'. $conta->conta_pagar_id); ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                          <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#conta-<?php echo $conta->conta_pagar_id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                          <a title="Editar" href="<?php echo base_url('receber/edit/'. $conta->conta_receber_id); ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                          <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#conta-<?php echo $conta->conta_receber_id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                       </td>
                     </tr>
                     
-                      <div class="modal fade" id="conta-<?php echo $conta->conta_pagar_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="conta-<?php echo $conta->conta_receber_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -142,7 +142,7 @@
                             <div class="modal-body">Clique em "Sim" para excluir a conta ou "Não" para cancelar.</div>
                             <div class="modal-footer">
                               <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Não</button>
-                              <a class="btn btn-danger btn-sm" href="<?php echo base_url('pagar/del/' . $conta->conta_pagar_id);?>">Sim</a>
+                              <a class="btn btn-danger btn-sm" href="<?php echo base_url('receber/del/' . $conta->conta_receber_id);?>">Sim</a>
                             </div>
                           </div>
                         </div>

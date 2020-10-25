@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('Ação não permitida');
 
-class Pagar extends CI_Controller{
+class Receber extends CI_Controller{
     
     public function __construct() {
         parent::__construct();
@@ -19,7 +19,7 @@ class Pagar extends CI_Controller{
         
       $data = array(
             
-            'titulo' =>'Contas a pagar cadastradas',
+            'titulo' =>'Contas a receber cadastradas',
         
             'styles' => array(
                 'vendor/datatables/dataTables.bootstrap4.min.css',
@@ -30,33 +30,33 @@ class Pagar extends CI_Controller{
                 'vendor/datatables/app.js'
             ),
             
-            'contas_pagar' => $this->financeiro_model->get_all_pagar(),
+            'contas_receber' => $this->financeiro_model->get_all_receber(),
         ); 
       
 //        echo '<pre>';
-//        print_r($data['contas_pagar']);
+//        print_r($data['contas_receber']);
 //        exit();
 //      
 
         $this->load->view('layout/header', $data);
-        $this->load->view('pagar/index');
+        $this->load->view('receber/index');
         $this->load->view('layout/footer');
         
     }
     
-    public function edit ($conta_pagar_id = NULL ){
+    public function edit ($conta_receber_id = NULL ){
         
-         if(!$conta_pagar_id || !$this->core_model->get_by_id('contas_pagar', array('conta_pagar_id' => $conta_pagar_id ))){
+         if(!$conta_receber_id || !$this->core_model->get_by_id('contas_receber', array('conta_receber_id' => $conta_receber_id ))){
           $this->session->set_flashdata('error', 'Conta não encontrada');
-          redirect('pagar');
+          redirect('receber');
           
       }else{
           
           
-          $this->form_validation->set_rules('conta_pagar_fornecedor_id','','required');
-          $this->form_validation->set_rules('conta_pagar_data_vencimento','','required');
-          $this->form_validation->set_rules('conta_pagar_valor','','required');
-          $this->form_validation->set_rules('conta_pagar_obs','Observação','max_length[500]');
+          $this->form_validation->set_rules('conta_receber_cliente_id','','required');
+          $this->form_validation->set_rules('conta_receber_data_vencimento','','required');
+          $this->form_validation->set_rules('conta_receber_valor','','required');
+          $this->form_validation->set_rules('conta_receber_obs','Observação','max_length[500]');
           
           
           if($this->form_validation->run()){
@@ -64,35 +64,35 @@ class Pagar extends CI_Controller{
               $data = elements(
                       
                       array(
-                          'conta_pagar_fornecedor_id',
-                          'conta_pagar_data_vencimento',
-                          'conta_pagar_valor',
-                          'conta_pagar_status',
-                          'conta_pagar_obs',
+                          'conta_receber_cliente_id',
+                          'conta_receber_data_vencimento',
+                          'conta_receber_valor',
+                          'conta_receber_status',
+                          'conta_receber_obs',
                       ), $this->input->post()
                       
               );
               
-              $conta_pagar_status = $this->input->post('conta_pagar_status');
+              $conta_receber_status = $this->input->post('conta_receber_status');
               
-              if($conta_pagar_status == 1){
+              if($conta_receber_status == 1){
                   
-                  $data['conta_pagar_data_pagamento'] = date('y-m-d h:i:s');
+                  $data['conta_receber_data_pagamento'] = date('y-m-d h:i:s');
                   
               }
               
               $data = html_escape($data);
               
-              $this->core_model->update('contas_pagar', $data, array('conta_pagar_id' => $conta_pagar_id));
+              $this->core_model->update('contas_receber', $data, array('conta_receber_id' => $conta_receber_id));
               
-              redirect('pagar');
+              redirect('receber');
 
           }else{
               //erro de validação
               
                         $data = array(
             
-            'titulo' =>'Contas a pagar cadastradas',
+            'titulo' =>'Editar conta',
         
             'styles' => array(
                 'vendor/datatables/dataTables.bootstrap4.min.css',
@@ -107,17 +107,17 @@ class Pagar extends CI_Controller{
                 
             ),
             
-            'conta_pagar' =>$this->core_model->get_by_id('contas_pagar', array('conta_pagar_id' => $conta_pagar_id)),
-            'fornecedores' =>$this->core_model->get_all('fornecedores'),
+            'conta_receber' =>$this->core_model->get_by_id('contas_receber', array('conta_receber_id' => $conta_receber_id)),
+            'clientes' =>$this->core_model->get_all('clientes',array('cliente_ativo' =>1)),
         ); 
       
 //        echo '<pre>';
-//        print_r($data['contas_pagar']);
+//        print_r($data['contas_receber']);
 //        exit();
 //      
 
         $this->load->view('layout/header', $data);
-        $this->load->view('pagar/edit');
+        $this->load->view('receber/edit');
         $this->load->view('layout/footer');
           
           
@@ -130,11 +130,11 @@ class Pagar extends CI_Controller{
     }
     
     public function add (){
-    
-          $this->form_validation->set_rules('conta_pagar_fornecedor_id','','required');
-          $this->form_validation->set_rules('conta_pagar_data_vencimento','','required');
-          $this->form_validation->set_rules('conta_pagar_valor','','required');
-          $this->form_validation->set_rules('conta_pagar_obs','Observação','max_length[500]');
+        
+        $this->form_validation->set_rules('conta_receber_cliente_id','','required');
+          $this->form_validation->set_rules('conta_receber_data_vencimento','','required');
+          $this->form_validation->set_rules('conta_receber_valor','','required');
+          $this->form_validation->set_rules('conta_receber_obs','Observação','max_length[500]');
           
           
           if($this->form_validation->run()){
@@ -142,35 +142,35 @@ class Pagar extends CI_Controller{
               $data = elements(
                       
                       array(
-                          'conta_pagar_fornecedor_id',
-                          'conta_pagar_data_vencimento',
-                          'conta_pagar_valor',
-                          'conta_pagar_status',
-                          'conta_pagar_obs',
+                          'conta_receber_cliente_id',
+                          'conta_receber_data_vencimento',
+                          'conta_receber_valor',
+                          'conta_receber_status',
+                          'conta_receber_obs',
                       ), $this->input->post()
                       
               );
               
-              $conta_pagar_status = $this->input->post('conta_pagar_status');
+              $conta_receber_status = $this->input->post('conta_receber_status');
               
-              if($conta_pagar_status == 1){
+              if($conta_receber_status == 1){
                   
-                  $data['conta_pagar_data_pagamento'] = date('y-m-d H:i:s');
+                  $data['conta_receber_data_pagamento'] = date('y-m-d h:i:s');
                   
               }
               
               $data = html_escape($data);
               
-              $this->core_model->insert('contas_pagar', $data);
+              $this->core_model->insert('contas_receber', $data);
               
-              redirect('pagar');
+              redirect('receber');
 
           }else{
               //erro de validação
               
                         $data = array(
             
-            'titulo' =>'Cadastrar contas a pagar',
+            'titulo' =>'Cadastrar conta',
         
             'styles' => array(
                 'vendor/datatables/dataTables.bootstrap4.min.css',
@@ -184,39 +184,43 @@ class Pagar extends CI_Controller{
                 'vendor/select2/app.js',
                 
             ),
-                            
-            'fornecedores' => $this->core_model->get_all('fornecedores'),
+            
+            'clientes' =>$this->core_model->get_all('clientes',array('cliente_ativo' =>1)),
         ); 
       
 //        echo '<pre>';
-//        print_r($data['contas_pagar']);
+//        print_r($data['contas_receber']);
 //        exit();
 //      
 
         $this->load->view('layout/header', $data);
-        $this->load->view('pagar/add');
+        $this->load->view('receber/add');
         $this->load->view('layout/footer');
           
           
               
           }
-          
+
     }
     
-   public function del($conta_pagar_id = NULL) {
+    
+   public function del($conta_receber_id = NULL) {
         
-        if (!$conta_pagar_id || !$this->core_model->get_by_id('contas_pagar', array('conta_pagar_id' => $conta_pagar_id))){
+        if (!$conta_receber_id || !$this->core_model->get_by_id('contas_receber', array('conta_receber_id' => $conta_receber_id))){
             $this->session->set_flashdata('error', 'Conta não encontrada');
-             redirect('pagar');
+             redirect('receber');
         }
              
-        if ($this->core_model->get_by_id('contas_pagar', array('conta_pagar_id' => $conta_pagar_id, 'conta_pagar_status'=>0 ))){
+        if ($this->core_model->get_by_id('contas_receber', array('conta_receber_id' => $conta_receber_id, 'conta_receber_status'=>0 ))){
             $this->session->set_flashdata('info', 'Esta conta não pode ser excluida, pois ainda está em aberto');
-            redirect('pagar');
+            redirect('receber');
         
         }
         
-            $this->core_model->delete('contas_pagar', array('conta_pagar_id' => $conta_pagar_id));
-            redirect('pagar');
-        }
+            $this->core_model->delete('contas_receber', array('conta_receber_id' => $conta_receber_id));
+            redirect('receber');
+
     }
+}
+
+        

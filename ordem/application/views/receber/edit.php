@@ -14,7 +14,7 @@
 
     <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="<?php echo base_url('pagar'); ?>">Contas à pagar</a></li>
+      <li class="breadcrumb-item"><a href="<?php echo base_url('receber'); ?>">Contas à receber</a></li>
     <li class="breadcrumb-item active" aria-current="page"><?php echo $titulo; ?></li>
   </ol>
     </nav>
@@ -26,7 +26,7 @@
                 
                 <form class="user" method="POST" name="form_edit">
                     
-                    <p><strong><i class="fas fa-user-clock"></i>&nbsp;&nbsp;Última alteração: </strong>&nbsp;<?php echo formata_data_banco_com_hora($conta_pagar->conta_pagar_data_alteracao); ?></p>
+                    <p><strong><i class="fas fa-user-clock"></i>&nbsp;&nbsp;Última alteração: </strong>&nbsp;<?php echo formata_data_banco_com_hora($conta_receber->conta_receber_data_alteracao); ?></p>
             
         <fieldset class="mt-4 border p-2">
                         
@@ -35,36 +35,36 @@
             <div class="form-group row mb-3">
                 
                 <div class="col-md-6 mb-3">
-                <label> Fornecedor </label>
-                    <select class="custom-select contas_pagar" name="conta_pagar_fornecedor_id">
+                <label> Clientes </label>
+                    <select class="custom-select contas_receber" name="conta_receber_cliente_id">
                         <option value="" selected></option>
-                       <?php foreach ($fornecedores as $fornecedor): ?>
-                        <option value="<?php echo $fornecedor->fornecedor_id ?>" <?php echo ($fornecedor->fornecedor_id == $conta_pagar->conta_pagar_fornecedor_id ? 'selected' : '')?>><?php echo $fornecedor->fornecedor_nome_fantasia?></option>
+                       <?php foreach ($clientes as $cliente): ?>
+                        <option value="<?php echo $cliente->cliente_id ?>" <?php echo ($cliente->cliente_id == $conta_receber->conta_receber_cliente_id ? 'selected' : '')?>><?php echo $cliente->cliente_nome?></option>
                         <?php endforeach;?>
                     </select>
-                 <?php echo form_error('conta_pagar_fornecedor_id','<small class="form-text text-danger">','</small>');?>
+                 <?php echo form_error('conta_receber_cliente_id','<small class="form-text text-danger">','</small>');?>
                     
                 </div>
                 
                 <div class="col-md-2 mb-3">
                     <label> Data de vencimento </label>
-                    <input type="date" class="form-control form-control-user-date " name="conta_pagar_data_vencimento" value="<?php echo $conta_pagar->conta_pagar_data_vencimento; ?>">
-                    <?php echo form_error('conta_pagar_data_vencimento','<small class="form-text text-danger">','</small>');?>
+                    <input type="date" class="form-control form-control-user-date " name="conta_receber_data_vencimento" value="<?php echo $conta_receber->conta_receber_data_vencimento; ?>">
+                    <?php echo form_error('conta_receber_data_vencimento','<small class="form-text text-danger">','</small>');?>
                 
                 </div>
                 
                 <div class="col-md-2 mb-3">
                     <label> Valor da conta </label>
-                    <input type="text" class="form-control form-control-user-date money2" name="conta_pagar_valor" value="<?php echo $conta_pagar->conta_pagar_valor; ?>">
-                    <?php echo form_error('conta_pagar_valor','<small class="form-text text-danger">','</small>');?>
+                    <input type="text" class="form-control form-control-user-date money2" name="conta_receber_valor" value="<?php echo $conta_receber->conta_receber_valor; ?>">
+                    <?php echo form_error('conta_receber_valor','<small class="form-text text-danger">','</small>');?>
                 
                 </div>
                 
                 <div class="col-md-2 mb-3">
                 <label> Situação </label>
-                    <select class="custom-select" name="conta_pagar_status">
-                        <option value="1" <?php echo ($conta_pagar->conta_pagar_status == 1 ? 'selected' : '')?>>Paga</option>
-                        <option value="0" <?php echo ($conta_pagar->conta_pagar_status == 0 ? 'selected' : '')?>>Pendente</option>
+                    <select class="custom-select" name="conta_receber_status">
+                        <option value="1" <?php echo ($conta_receber->conta_receber_status == 1 ? 'selected' : '')?>>Paga</option>
+                        <option value="0" <?php echo ($conta_receber->conta_receber_status == 0 ? 'selected' : '')?>>Pendente</option>
                     </select>
                 </div>
                 
@@ -77,8 +77,8 @@
                 
                 <div class="col-md-12 mb-3">
                     <label> Observações da conta </label>
-                    <textarea class="form-control" name="conta_pagar_obs"><?php echo $conta_pagar->conta_pagar_obs;?></textarea>
-                    <?php echo form_error('conta_pagar_obs','<small class="form-text text-danger">','</small>');?>
+                    <textarea class="form-control" name="conta_receber_obs"><?php echo $conta_receber->conta_receber_obs;?></textarea>
+                    <?php echo form_error('conta_receber_obs','<small class="form-text text-danger">','</small>');?>
                 
                 </div>
 
@@ -92,11 +92,11 @@
         
                     
                 <div class="form-group row ">
-                    <input type="hidden" name="conta_pagar_id" value="<?php echo $conta_pagar->conta_pagar_id; ?>"/>
+                    <input type="hidden" name="conta_receber_id" value="<?php echo $conta_receber->conta_receber_id; ?>"/>
                 </div> 
               
 
-                <button type="submit" class="btn btn-primary btn-sm mt-4"<?php echo ($conta_pagar -> conta_pagar_status == 1 ? 'disabled' : '') ?>><?php echo ($conta_pagar -> conta_pagar_status == 1 ? 'Conta paga' : 'Salvar') ?></button> 
+                <button type="submit" class="btn btn-primary btn-sm mt-4"<?php echo ($conta_receber -> conta_receber_status == 1 ? 'disabled' : '') ?>><?php echo ($conta_receber -> conta_receber_status == 1 ? 'Conta paga' : 'Salvar') ?></button> 
 
                     
             <a title="Voltar" href="<?php echo base_url($this->router->fetch_class()); ?>" class="btn btn-success btn-sm ml-2 mt-4">Voltar</a>

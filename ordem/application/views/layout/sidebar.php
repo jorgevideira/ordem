@@ -26,6 +26,19 @@
       <div class="sidebar-heading">
         Módulos
       </div>
+            
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCinco" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-cash-register"></i>
+          <span>Vendas</span>
+        </a>
+        <div id="collapseCinco" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Escolha uma opção:</h6>
+            <a title="Gerenciar ordem de serviços"class="collapse-item" href="<?php echo base_url('os'); ?>"><i class="fas fa-shopping-basket text-gray-900"></i>&nbsp;&nbsp;Ordem de serviço</a>
+          </div>
+        </div>
+      </li>
       
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTres" aria-expanded="true" aria-controls="collapseTwo">
@@ -58,16 +71,19 @@
         </div>
       </li>
       
+
       
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseQuatro" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-file-invoice-dollar"></i>
+          <i class="fas fa-wallet"></i>
           <span>Financeiro</span>
         </a>
         <div id="collapseQuatro" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Escolha uma opção:</h6>
             <a title="Gerenciar contas a pagar"class="collapse-item" href="<?php echo base_url('pagar'); ?>"><i class="fas fa-money-bill-alt text-gray-900"></i>&nbsp;&nbsp;Contas a pagar</a>
+            <a title="Gerenciar contas a receber"class="collapse-item" href="<?php echo base_url('receber'); ?>"><i class="fas fa-hand-holding-usd text-gray-900"></i>&nbsp;&nbsp;Contas a receber</a>
+            <a title="Gerenciar formas de pagamento"class="collapse-item" href="<?php echo base_url('modulo'); ?>"><i class="fas fa-money-check-alt text-gray-900"></i>&nbsp;&nbsp;Formas de pagamento</a>
           </div>
         </div>
       </li>
