@@ -243,9 +243,17 @@ class Ordem_servicos extends CI_Controller{
            $html .= '<body style="font-size: 12px">';
            
            
-           $html .= '<h4>'.$empresa->sistema_razao_social.'</h4>';
+           $html .= '<h4 align="center">   
+                   '.$empresa->sistema_razao_social.'</br>
+                   '.'CNPJ: '.$empresa->sistema_cnpj.'</br>
+                   '.$empresa->sistema_endereco.',&nbsp;'.$empresa->sistema_numero.'</br>
+                   '.$empresa->sistema_cep.',&nbsp;'.$empresa->sistema_cidade.' - '.$empresa->sistema_estado.'</br>
+                   '.$empresa->sistema_email.',&nbsp;'.$empresa->sistema_telefone_fixo.'</br>   
+                   </h4>';
            
+           $html .='<hr>';
            
+           //DADOS DA ORDEM
            
            
            
@@ -255,9 +263,9 @@ class Ordem_servicos extends CI_Controller{
            
            $html .= '</html>';
            
-//           echo '<pre>';
-//           print_r($html);
-//           exit();
+           echo '<pre>';
+           print_r($html);
+           exit();
         }
         
     }
