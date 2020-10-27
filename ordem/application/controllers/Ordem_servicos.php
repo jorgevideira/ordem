@@ -65,6 +65,9 @@ class Ordem_servicos extends CI_Controller{
             
             if($this->form_validation->run()){
                
+                
+             
+    
              $ordem_servico_valor_total = str_replace('R$', "", trim($this->input->post('ordem_servico_valor_total')));
              
              $data = elements(
@@ -89,6 +92,10 @@ class Ordem_servicos extends CI_Controller{
              
              $data = html_escape($data);
              
+//             echo '<pre>';
+//             print_r($data);
+//             exit();
+             
              $this ->core_model->update('ordens_servicos', $data, array('ordem_servico_id' => $ordem_servico_id));
              
              //editando os serrviços antigos da orden editada
@@ -103,7 +110,7 @@ class Ordem_servicos extends CI_Controller{
              
              $qty_service = count($servico_id);
              
-             $ordem_servico_id = $this->input->post('$ordem_servico_id');
+             $ordem_servico_id = $this->input->post('ordem_servico_id');
              
              for($i = 0; $i < $qty_servico; $i++){
                  
@@ -120,12 +127,16 @@ class Ordem_servicos extends CI_Controller{
                
                  $data = html_escape($data);
                  
+             
+                 
                  $this->core_model->insert('ordem_tem_servicos', $data);
+                 
+            
              }
              
              // criar recurso PDF
              
-             redirect('os');
+             redirect('os/imprimir/' . $ordem_servico_id);
                 
             }else{
                // ERRO DE VALIDAÇÃO 
@@ -158,9 +169,9 @@ class Ordem_servicos extends CI_Controller{
             $ordem_servico = $data['ordem_servico'] = $this->ordem_servicos_model->get_by_id($ordem_servico_id);  
             
 //        echo '<pre>';
-//        print_r($ordem_servico);
+//        print_r($data);
 //        exit();
-                
+//                
         $this->load->view('layout/header', $data);
         $this->load->view('Ordem_servicos/edit');
         $this->load->view('layout/footer'); 
@@ -168,6 +179,87 @@ class Ordem_servicos extends CI_Controller{
                   
         
         }
+    }
+    
+    public function imprimir($ordem_servico_id = NULL){
+        
+        if(!$ordem_servico_id || !$this->core_model->get_by_id('ordens_servicos', array('ordem_servico_id' => $ordem_servico_id))){
+          $this->session->set_flashdata('error', 'Ordem de serviço não encontrado');
+          redirect('os');
+          
+        }else{
+        
+          $data = array (
+              
+              'titulo' => 'Escolha uma opção',
+              
+              //enviar dados da ordem
+              
+              
+          );  
+            
+            
+        
+        $this->load->view('layout/header', $data);
+        $this->load->view('Ordem_servicos/imprimir');
+        $this->load->view('layout/footer');  
+            
+        }
+        
+        
+    }
+    
+    public function pdf ($ordem_servico_id = NULL) {
+        
+        if(!$ordem_servico_id || !$this->core_model->get_by_id('ordens_servicos', array('ordem_servico_id' => $ordem_servico_id))){
+          $this->session->set_flashdata('error', 'Ordem de serviço não encontrado');
+          redirect('os');
+          
+        }else{
+            
+           $empresa = $this->core_model->get_by_id('sistema', array('sistema_id' => 1));
+                   
+//           echo '<pre>';
+//           print_r($empresa);
+//           exit();
+           
+           $ordem_servico = $this->ordem_servicos_model->get_by_id($ordem_servico_id);
+           
+//           echo '<pre>';
+//           print_r($ordem_servico);
+//           exit();
+           
+           $file_name = 'O.S&nbsp;'.$ordem_servico->ordem_servico_id;
+           
+           $html = '<html>';
+           
+           $html .= '<head>';
+           
+           $html .= '<title>'.$empresa->sistema_nome_fantasia.' | Impressão de ordem de serviço</title>';
+           
+           
+           $html .= '</head>';
+           
+           $html .= '<body style="font-size: 12px">';
+           
+           
+           $html .= '<h4>'.$empresa->sistema_razao_social.'</h4>';
+           
+           
+           
+           
+           
+           
+           
+           $html .= '</body>';
+           
+           $html .= '</html>';
+           
+//           echo '<pre>';
+//           print_r($html);
+//           exit();
+        }
+        
     }
 
 }

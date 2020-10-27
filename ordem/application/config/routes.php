@@ -64,3 +64,5 @@ $route['os'] = 'Ordem_servicos/index';
 $route['os/add'] = 'Ordem_servicos/add';
 $route['os/edit/(:num)'] = 'Ordem_servicos/edit/$1';
 $route['os/del/(:num)'] = 'Ordem_servicos/del/$1';
+$route['os/imprimir/(:num)'] = 'Ordem_servicos/imprimir/$1';
+$route['os/pdf/(:num)'] = 'Ordem_servicos/pdf/$1';
