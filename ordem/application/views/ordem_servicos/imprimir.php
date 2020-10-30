@@ -19,6 +19,23 @@
   </ol>
     </nav>
 
+    <?php if($message = $this->session->flashdata('sucesso')): ?>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><?php echo $message  ?></strong>
+                        &nbsp;&nbsp;<i class="far fa-smile-wink"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+    <?php endif; ?>
+
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
 
@@ -28,7 +45,7 @@
                     
                     <div class="col-md-4">
   
-                  <a href="<?php echo base_url('os/pdf'); ?>" class="btn btn-dark btn-icon-split btn-lg">
+                  <a href="<?php echo base_url('os/pdf/'.$ordem_servico->ordem_servico_id); ?>" class="btn btn-dark btn-icon-split btn-lg">
                     <span class="icon text-white-50">
                       <i class="fas fa-print"></i>
                     </span>

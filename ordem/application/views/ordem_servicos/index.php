@@ -74,7 +74,7 @@
                     <tr>
                       <td><?php echo $os->ordem_servico_id ?></td>
                       <td><?php echo formata_data_banco_com_hora($os->ordem_servico_data_emissao)?></td>
-                      <td><?php echo $os -> cliente_nome?></td>
+                      <td><?php echo $os -> cliente_nome_completo?></td>
                       <td><?php echo ($os->ordem_servico_status == 1 ? $os->forma_pagamento : 'Em aberto') ?></td>
                       <td><?php echo 'R$&nbsp;' . $os -> ordem_servico_valor_total ?></td>
                       

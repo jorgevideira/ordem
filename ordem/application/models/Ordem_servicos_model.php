@@ -9,8 +9,9 @@ class Ordem_servicos_model extends CI_Model{
         $this->db->select([
             'ordens_servicos.*',
             'clientes.cliente_id',
-            'clientes.cliente_nome',
-            'clientes.cliente_sobrenome',
+            'CONCAT(clientes.cliente_nome, " ", clientes.cliente_sobrenome) as cliente_nome_completo',
+            //'clientes.cliente_nome',
+            //'clientes.cliente_sobrenome',
             'formas_pagamentos.forma_pagamento_id',
             'formas_pagamentos.forma_pagamento_nome as forma_pagamento',
         ]);
@@ -64,7 +65,7 @@ class Ordem_servicos_model extends CI_Model{
     
     
     
-    public function delete_old_services($ordem_servico_id = NULL) {
+    public function delete_old_servicos($ordem_servico_id = NULL) {
         
         if($ordem_servico_id){
             
