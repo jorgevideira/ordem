@@ -453,6 +453,11 @@ class Clientes extends CI_Controller{
 
     public function del($cliente_id = NULL) {
         
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('error', 'Você não tem permissão para excluir clientes');
+         redirect('clientes');
+     }
+        
         if (!$cliente_id || !$this->core_model->get_by_id('clientes', array('cliente_id' => $cliente_id))){
             $this->session->set_flashdata('error', 'Cliente não encontrado');
              redirect('clientes');

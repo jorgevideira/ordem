@@ -46,6 +46,13 @@ class Produtos extends CI_Controller{
     
     public function edit($produto_id = NULL) {
         
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('error', 'Você não tem permissão para editar produtos');
+         redirect('produtos');
+     }
+        
+         
+        
         if(!$produto_id || !$this->core_model->get_by_id('produtos', array('produto_id' => $produto_id))){
           $this->session->set_flashdata('error', 'Produto não encontrado');
           redirect('produtos');
@@ -136,9 +143,15 @@ class Produtos extends CI_Controller{
           
       }
         
-    }
-    
+         }
+        
+
     public function del($produto_id = NULL) {
+        
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('error', 'Você não tem permissão para excluir produtos!');
+         redirect('produtos');
+     }
         
         if (!$produto_id || !$this->core_model->get_by_id('produtos', array('produto_id' => $produto_id))){
             $this->session->set_flashdata('error', 'Produto não encontrado');

@@ -177,6 +177,11 @@ class Categorias extends CI_Controller{
     
     public function del($categoria_id = NULL) {
         
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para excluir categoria');
+         redirect('categorias');
+     }
+        
         if (!$categoria_id || !$this->core_model->get_by_id('categorias', array('categoria_id' => $categoria_id))){
             $this->session->set_flashdata('error', 'Categoria não encontrada');
              redirect('categorias');

@@ -19,6 +19,7 @@ class Ordem_servicos extends CI_Controller{
     
     public function index () {
         
+        
       $data = array(
             
             'titulo' =>'Ordens de serviços cadastradas',
@@ -286,6 +287,10 @@ class Ordem_servicos extends CI_Controller{
     }
 
     public function del ($ordem_servico_id = NULL){
+        
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('error', 'Você não tem permissão para excluir ordem de serviço');
+         redirect('os');
 
         if(!$ordem_servico_id || !$this->core_model->get_by_id('ordens_servicos', array('ordem_servico_id' => $ordem_servico_id))){
             $this->session->set_flashdata('error', 'Ordem de serviço não encontrado');
@@ -304,7 +309,7 @@ class Ordem_servicos extends CI_Controller{
 
     }
 
-
+    }
     
     public function imprimir($ordem_servico_id = NULL){
         

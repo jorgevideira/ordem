@@ -15,6 +15,11 @@ class Servicos extends CI_Controller{
     
     public function index () {
         
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Serviços');
+         redirect('/');
+     }
+        
       $data = array(
             
             'titulo' =>'Serviços cadastrados',
@@ -42,6 +47,11 @@ class Servicos extends CI_Controller{
     }
     
     public function add() {
+        
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Serviços');
+         redirect('/');
+     }
         
             $this->form_validation->set_rules('servico_nome', '', 'trim|required|min_length[3]|max_length[145]|is_unique[servicos.servico_nome]');
             $this->form_validation->set_rules('servico_preco', '', 'trim|required');
@@ -95,6 +105,10 @@ class Servicos extends CI_Controller{
     }
     
     public function edit($servico_id = NULL) {
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Serviços');
+         redirect('/');
+     }
         
       if(!$servico_id || !$this->core_model->get_by_id('servicos', array('servico_id' => $servico_id))){
           $this->session->set_flashdata('error', 'Serviço não encontrado');
@@ -171,6 +185,10 @@ class Servicos extends CI_Controller{
     }
     
     public function del($servico_id = NULL) {
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Serviços');
+         redirect('/');
+     }
         
         if (!$servico_id || !$this->core_model->get_by_id('servicos', array('servico_id' => $servico_id))){
             $this->session->set_flashdata('error', 'Serviço não encontrado');

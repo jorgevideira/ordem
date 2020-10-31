@@ -306,6 +306,11 @@ class Vendas extends CI_Controller{
     }
 
     public function del($venda_id = NULL){
+        
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('error', 'Você não tem permissão para excluir vendas');
+         redirect('vendas');
+         
         if(!$venda_id || !$this->core_model->get_by_id('vendas', ['venda_id' => $venda_id])){
             $this->session->set_flashdata('error', 'Venda não localizada !!!');
             redirect('vendas');
@@ -316,6 +321,7 @@ class Vendas extends CI_Controller{
         }
 
 
+        }
     }
 
     public function imprimir($venda_id = NULL){

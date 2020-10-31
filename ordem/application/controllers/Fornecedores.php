@@ -122,6 +122,11 @@ class Fornecedores extends CI_Controller{
     
     public function del($fornecedor_id = NULL) {
         
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para excluir fornecedores');
+         redirect('fornecedores');
+     }
+        
         if (!$fornecedor_id || !$this->core_model->get_by_id('fornecedores', array('fornecedor_id' => $fornecedor_id))){
             $this->session->set_flashdata('error', 'Fornecedor não encontrado');
              redirect('fornecedores');

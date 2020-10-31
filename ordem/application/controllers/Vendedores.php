@@ -15,6 +15,11 @@ class Vendedores extends CI_Controller{
     
     public function index () {
         
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Vendedores');
+         redirect('/');
+     }
+        
       $data = array(
             
             'titulo' =>'Fornecedores cadastrados',
@@ -42,6 +47,11 @@ class Vendedores extends CI_Controller{
     }
     
     public function add() {
+        
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Vendedores');
+         redirect('/');
+     }
         
             $this->form_validation->set_rules('vendedor_nome_completo', '', 'trim|required|min_length[4]|max_length[200]');
  
@@ -123,6 +133,11 @@ class Vendedores extends CI_Controller{
     }
     
     public function edit($vendedor_id = NULL) {
+        
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Vendedores');
+         redirect('/');
+     }
         
       if(!$vendedor_id || !$this->core_model->get_by_id('vendedores', array('vendedor_id' => $vendedor_id))){
           $this->session->set_flashdata('error', 'Vendedor não encontrado');
@@ -303,6 +318,11 @@ class Vendedores extends CI_Controller{
     }
     
     public function del($vendedor_id = NULL) {
+        
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para acessar o menu Vendedores');
+         redirect('/');
+     }
         
         if (!$vendedor_id || !$this->core_model->get_by_id('vendedores', array('vendedor_id' => $vendedor_id))){
             $this->session->set_flashdata('error', 'Vendedor não encontrado');

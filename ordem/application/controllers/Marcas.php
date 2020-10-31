@@ -177,6 +177,11 @@ class Marcas extends CI_Controller{
     
     public function del($marca_id = NULL) {
         
+        if (!$this->ion_auth->is_admin()){
+         $this->session->set_flashdata('info', 'Você não tem permissão para excluir marcas');
+         redirect('marcas');
+     }
+        
         if (!$marca_id || !$this->core_model->get_by_id('marcas', array('marca_id' => $marca_id))){
             $this->session->set_flashdata('error', 'Marca não encontrada');
              redirect('marcas');

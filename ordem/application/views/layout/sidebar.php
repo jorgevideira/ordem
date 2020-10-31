@@ -51,8 +51,10 @@
             <h6 class="collapse-header">Escolha uma opção:</h6>
             <a title="Gerenciar clientes"class="collapse-item" href="<?php echo base_url('clientes') ?>"><i class="fas fa-user-tie text-gray-900"></i>&nbsp;&nbsp;Clientes</a>
             <a title="Gerenciar fornecedores" class="collapse-item" href="<?php echo base_url('fornecedores') ?>"><i class="fas fa-user-tag text-gray-900"></i>&nbsp;&nbsp;Fornecedores</a>
+            <?php if ($this->ion_auth->is_admin()):?> 
             <a title="Gerenciar vendedores" class="collapse-item" href="<?php echo base_url('vendedores') ?>"><i class="far fa-user text-gray-900"></i>&nbsp;&nbsp;Vendedores</a>
             <a title="Gerenciar serviços" class="collapse-item" href="<?php echo base_url('servicos') ?>"><i class="fas fa-briefcase text-gray-900"></i>&nbsp;&nbsp;Serviços</a>
+            <?php endif; ?> 
           </div>
         </div>
       </li>
@@ -72,7 +74,8 @@
         </div>
       </li>
       
-
+      <!-- Inicio da restrição -->
+      <?php if ($this->ion_auth->is_admin()):?> 
       
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseQuatro" aria-expanded="true" aria-controls="collapseTwo">
@@ -108,6 +111,8 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+       
+      
       <!-- Heading -->
       <div class="sidebar-heading">
         Configurações
@@ -126,9 +131,13 @@
           <i class="fas fa-cogs"></i>
           <span>Sistema</span></a>
       </li>
+      
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
+      
+      <?php endif; ?> 
+      <!-- fim da restrição -->
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
