@@ -53,7 +53,7 @@
             <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a title="Cadastrar nova venda" href="<?php echo base_url('venda/add');?>" class="btn btn-success btn-sm float-right"><i class="fas fa-shopping-cart "></i>&nbsp;Nova</a>
+                <a title="Cadastrar nova venda" href="<?php echo base_url('vendas/add');?>" class="btn btn-success btn-sm float-right"><i class="fas fa-shopping-cart "></i>&nbsp;Nova</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -79,8 +79,8 @@
                       
                       <td class="text-right">
                           <a title="Imprimir" href="<?php echo base_url('vendas/pdf/'. $venda->venda_id); ?>" class="btn btn-sm btn-dark"><i class="fas fa-print"></i></a>
-                          <a title="Editar" href="<?php echo base_url('vendas/edit/'. $venda->venda_id); ?>" class="btn btn-sm btn-primary"><i class="fas fa-user-edit"></i></a>
-                          <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#venda-<?php echo $venda->venda_id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-user-times"></i></a>
+                          <a title="Visualizar" href="<?php echo base_url('vendas/edit/'. $venda->venda_id); ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+                          <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#venda-<?php echo $venda->venda_id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
                       </td>
                     </tr>
                     

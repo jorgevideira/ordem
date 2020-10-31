@@ -1,7 +1,7 @@
 
 
   <?php $this->load->view('layout/sidebar') ?>
-
+        
    
 
       <!-- Main Content -->
@@ -39,7 +39,7 @@
                     <select class="custom-select contas_receber" name="conta_receber_cliente_id">
                         <option value="" selected></option>
                        <?php foreach ($clientes as $cliente): ?>
-                        <option value="<?php echo $cliente->cliente_id ?>" <?php echo ($cliente->cliente_id == $conta_receber->conta_receber_cliente_id ? 'selected' : '')?>><?php echo $cliente->cliente_nome?></option>
+                        <option value="<?php echo $cliente->cliente_id ?>" <?php echo ($cliente->cliente_id == $conta_receber->conta_receber_cliente_id ? 'selected' : '')?>><?php echo $cliente->cliente_nome. '&nbsp;'.$cliente->cliente_sobrenome?></option>
                         <?php endforeach;?>
                     </select>
                  <?php echo form_error('conta_receber_cliente_id','<small class="form-text text-danger">','</small>');?>

@@ -45,11 +45,11 @@
                     
                     <div class="col-md-4">
   
-                  <a href="<?php echo base_url('os/pdf/'.$ordem_servico->ordem_servico_id); ?>" class="btn btn-dark btn-icon-split btn-lg">
+                  <a href="<?php echo base_url('vendas/pdf/'. $venda->venda_id); ?>" class="btn btn-dark btn-icon-split btn-lg">
                     <span class="icon text-white-50">
                       <i class="fas fa-print"></i>
                     </span>
-                    <span class="text">Imprimir Ordem de Serviço</span>
+                    <span class="text">Imprimir venda</span>
                   </a>
      
                    </div>
@@ -57,22 +57,22 @@
                     
                     <div class="col-md-4">
   
-                  <a href="<?php echo base_url('os/add'); ?>" class="btn btn-success btn-icon-split btn-lg">
+                  <a href="<?php echo base_url('vendas/add'); ?>" class="btn btn-success btn-icon-split btn-lg">
                     <span class="icon text-white-50">
                       <i class="fas fa-plus"></i>
                     </span>
-                    <span class="text">Nova Ordem de Serviço</span>
+                    <span class="text">Nova venda</span>
                   </a>
      
                    </div>
                     
                     <div class="col-md-4">
   
-                  <a href="<?php echo base_url('os'); ?>" class="btn btn-info btn-icon-split btn-lg">
+                  <a href="<?php echo base_url('vendas'); ?>" class="btn btn-info btn-icon-split btn-lg">
                     <span class="icon text-white-50">
                       <i class="fas fa-list-ol"></i>
                     </span>
-                    <span class="text">Listar Ordem de Serviço</span>
+                    <span class="text">Listar vendas</span>
                   </a>
      
                    </div>
