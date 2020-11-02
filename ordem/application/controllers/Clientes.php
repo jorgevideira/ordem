@@ -25,7 +25,9 @@ class Clientes extends CI_Controller{
             'scripts' => array(
                 'vendor/datatables/jquery.dataTables.min.js',
                 'vendor/datatables/dataTables.bootstrap4.min.js',
-                'vendor/datatables/app.js'
+                'vendor/datatables/app.js',
+                'vendor/cep/usuarios.js',
+                'js/util.js',
             ),
             
             'clientes' => $this->core_model->get_all('clientes'),
@@ -131,7 +133,9 @@ class Clientes extends CI_Controller{
             'scripts' => array(
                 'vendor/mask/jquery.mask.min.js',
                 'vendor/mask/app.js',
-                'js/clientes.js'
+                'js/clientes.js',
+                'js/util.js',
+                'vendor/cep/usuarios.js',
             ),
             
         ); 
@@ -257,6 +261,9 @@ class Clientes extends CI_Controller{
             'scripts' => array(
                 'vendor/mask/jquery.mask.min.js',
                 'vendor/mask/app.js',
+                'js/clientes.js',
+                'js/util.js',
+                'vendor/cep/usuarios.js',
             ),
             
             'cliente' => $this->core_model->get_by_id('clientes', array('cliente_id' => $cliente_id)),
@@ -466,4 +473,105 @@ class Clientes extends CI_Controller{
             redirect('clientes');
         }
     }
+    
+    public function preenche_endereco(){
+        
+        if(!$this -> input->is_ajax_request()){
+            exit('Ação não permitida');
+            
+        }
+        
+        $this->form_validation->set_rules('cliente_cep', 'CEP', 'trim|required|exact_length[9]');
+
+        /*
+         * Retornará dados para o javascript usuarios.js
+         */
+        $retorno = array();
+
+        if ($this->form_validation->run()) {
+
+            /*
+             * CEP validado quanto ao seu formato
+             * Passamos então para o início da requisição
+             */
+
+            /*
+             * https://viacep.com.br/ws/01001000/json/
+             */
+
+            /*
+             * Formatando o cep de acordo com que é definido pela API ViaCep
+             */
+            $cep = str_replace("-", "", $this->input->post('cliente_cep'));
+
+
+            $url = "https://viacep.com.br/ws/";
+            $url .= $cep;
+            $url .= "/json/";
+
+            $cr = curl_init();
+
+            /*
+             * Definino a URL de busca (requisição)
+             */
+            curl_setopt($cr, CURLOPT_URL, $url);
+
+
+
+            curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
+
+
+            $resultado_requisicao = curl_exec($cr);
+
+
+            curl_close($cr);
+
+            /*
+             * Tranformando o resultado em um objeto para facilitar o acesso aos seus atributos
+             */
+            $resultado_requisicao = json_decode($resultado_requisicao);
+            
+
+            /*
+             * Verificamos se o CEP informado é existente,
+             * Caso não existe, retornamos para o javascript que o CEP é inválido
+             * Caso CEP seja existente, retornamos as informações do endereço
+             */
+            if (isset($resultado_requisicao->erro)) {
+
+                $retorno['erro'] = 3;
+                $retorno['cliente_cep'] = 'Informe um CEP válido';
+                $retorno['mensagem'] = 'Informe um CEP válido';
+                
+               
+            } else {
+
+                /*
+                 * Sucesso na requisição..... O CEP existe na base do ViaCep
+                 */
+
+                $retorno['erro'] = 0;
+                $retorno['cliente_endereco'] = $resultado_requisicao->logradouro;
+                $retorno['cliente_bairro'] = $resultado_requisicao->bairro;
+                $retorno['cliente_cidade'] = $resultado_requisicao->localidade;
+                $retorno['cliente_estado'] = $resultado_requisicao->uf;
+                $retorno['mensagem'] = 'Cep encontrado';
+            }
+        } else {
+
+            /*
+             * Erros de validação
+             */
+            $retorno['erro'] = 3;
+            $retorno['cliente_cep'] = form_error('cliente_cep', '<div class="text-danger">', '</div>');
+            $retorno['mensagem'] = validation_errors();
+        }
+
+        /*
+         * Retorno o dados contidos no $retorno
+         */
+
+        echo json_encode($retorno);
 }
+}
+

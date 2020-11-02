@@ -35,8 +35,8 @@
                 <?php if(isset($contador_notificacoes) && $contador_notificacoes > 0 ): ?>
                         
                 <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
+              <a class="nav-link dropdown-toggle blink_me" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell text-gray-900 fa-fw"></i>
                 <!-- Counter - Alerts -->
                 <span class="badge badge-danger badge-counter"><?php echo $contador_notificacoes; ?></span>
               </a>
@@ -51,12 +51,76 @@
                   <a title="Gerenciar contas a receber" class="dropdown-item d-flex align-items-center" href="<?php echo base_url('receber');?>">
                   <div class="mr-3">
                     <div class="icon-circle bg-danger">
-                      <i class="fas fa-hand-holding-usd text-white"></i>
+                      <i class="fas fa-hand-holding-usd fa-lg text-white"></i>
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500"><?php echo date('Y-m-d')?></div>
+                      <div class="small text-gray-500"><?php echo formata_data_banco_sem_hora(date('Y-m-d'))?></div>
                     <span class="font-weight-bold">Existem contas a receber vencidas!</span>
+                  </div>
+                </a>
+                  
+                  <?php endif;?>
+                  
+                  <?php if($contas_pagar_vencidas) :?>
+                  
+                  <a title="Gerenciar contas a pagar" class="dropdown-item d-flex align-items-center" href="<?php echo base_url('pagar');?>">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-danger">
+                      <i class="fas fa-money-bill-alt fa-lg text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                      <div class="small text-gray-500"><?php echo formata_data_banco_sem_hora(date('Y-m-d'))?></div>
+                    <span class="font-weight-bold">Existem contas a pagar vencidas!</span>
+                  </div>
+                </a>
+                  
+                  <?php endif;?>
+                  
+                  <?php if($contas_pagar_vencem_hoje) :?>
+                  
+                  <a title="Gerenciar contas que vencem hoje" class="dropdown-item d-flex align-items-center" href="<?php echo base_url('pagar');?>">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-money-bill-alt fa-lg text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                      <div class="small text-gray-500"><?php echo formata_data_banco_sem_hora(date('Y-m-d'))?></div>
+                    <span class="font-weight-bold">Existem contas a pagar que vencem hoje!</span>
+                  </div>
+                </a>
+                  
+                  <?php endif;?>
+                  
+                  <?php if($contas_receber_vencem_hoje) :?>
+                  
+                  <a title="Gerenciar contas a receber hoje" class="dropdown-item d-flex align-items-center" href="<?php echo base_url('receber');?>">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-hand-holding-usd fa-lg text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                      <div class="small text-gray-500"><?php echo formata_data_banco_sem_hora(date('Y-m-d'))?></div>
+                    <span class="font-weight-bold">Existem contas a receber que vencem hoje!</span>
+                  </div>
+                </a>
+                  
+                  <?php endif;?>
+                 
+                 <?php if($usuarios_desativados) :?>
+                  
+                  <a title="Gerenciar usuarios" class="dropdown-item d-flex align-items-center" href="<?php echo base_url('usuarios');?>">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-info">
+                      <i class="fas fa-users fa-lg text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                      <div class="small text-gray-500"><?php echo formata_data_banco_sem_hora(date('Y-m-d'))?></div>
+                    <span class="font-weight-bold">Existem usuários desativados</span>
                   </div>
                 </a>
                   

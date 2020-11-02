@@ -94,8 +94,8 @@
                       <td class="text-center pr-4"><?php echo ($forma->forma_pagamento_aceita_parc == 1 ? '<span class="badge badge-info btn-sm">Sim</span>' : '<span class="badge badge-danger btn-sm">Não</span>')?></td>
                       <td class="text-center pr-4"><?php echo ($forma->forma_pagamento_ativa == 1 ? '<span class="badge badge-info btn-sm">Sim</span>' : '<span class="badge badge-danger btn-sm">Não</span>')?></td>
                       <td class="text-right">
-                          <a title="Editar" href="<?php echo base_url('modulo/edit/'. $forma->forma_pagamento_id); ?>" class="btn btn-sm btn-primary"><i class="fas fa-user-edit"></i></a>
-                          <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#forma-<?php echo $forma->forma_pagamento_id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-user-times"></i></a>
+                          <a title="Editar" href="<?php echo base_url('modulo/edit/'. $forma->forma_pagamento_id); ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                          <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#forma-<?php echo $forma->forma_pagamento_id; ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
                       </td>
                     </tr>
                     

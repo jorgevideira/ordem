@@ -91,7 +91,7 @@
                       <?php foreach ($clientes as $cliente): ?>
                     <tr>
                       <td><?php echo $cliente->cliente_id ?></td>
-                      <td><?php echo  $cliente->cliente_nome ?></td>
+                      <td><?php echo  $cliente->cliente_nome.'&nbsp'.$cliente->cliente_sobrenome ?></td>
                       <td><?php echo $cliente -> cliente_cpf_cnpj ?></td>
                       <td><?php echo ($cliente->cliente_tipo == 1 ? 'Pessoa Física' : 'Pessoa Jurídica ')?></td>
                       <td class="text-center pr-4"><?php echo ($cliente->cliente_ativo == 1 ? '<span class="badge badge-info btn-sm">Sim</span>' : '<span class="badge badge-danger btn-sm">Não</span>')?></td>

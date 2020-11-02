@@ -26,6 +26,7 @@ date_default_timezone_set('America/Sao_Paulo');
 |
 */
 $config['base_url'] = 'http://localhost/ordem/';
+//$config['base_url'] = 'https://ordembrm.000webhostapp.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +103,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

@@ -25,7 +25,9 @@ class Fornecedores extends CI_Controller{
             'scripts' => array(
                 'vendor/datatables/jquery.dataTables.min.js',
                 'vendor/datatables/dataTables.bootstrap4.min.js',
-                'vendor/datatables/app.js'
+                'vendor/datatables/app.js',
+                'vendor/cep/usuarios.js',
+                'js/util.js',
             ),
             
             'fornecedores' => $this->core_model->get_all('fornecedores'),
@@ -103,6 +105,8 @@ class Fornecedores extends CI_Controller{
                 'scripts' => array(
                     'vendor/mask/jquery.mask.min.js',
                     'vendor/mask/app.js',
+                    'vendor/cep/usuarios.js',
+                    'js/util.js',
         ),  
         
         );
@@ -216,6 +220,8 @@ class Fornecedores extends CI_Controller{
                 'scripts' => array(
                     'vendor/mask/jquery.mask.min.js',
                     'vendor/mask/app.js',
+                    'vendor/cep/usuarios.js',
+                    'js/util.js',
         ),  
             'fornecedor' => $this->core_model->get_by_id('fornecedores', array('fornecedor_id' => $fornecedor_id)),
         );
@@ -423,4 +429,105 @@ class Fornecedores extends CI_Controller{
             }
         }
     }
+    
+    public function preenche_endereco_fornecedores(){
+        
+        if(!$this -> input->is_ajax_request()){
+            exit('Ação não permitida');
+            
+        }
+        
+        $this->form_validation->set_rules('fornecedor_cep', 'CEP', 'trim|required|exact_length[9]');
+
+        /*
+         * Retornará dados para o javascript usuarios.js
+         */
+        $retorno = array();
+
+        if ($this->form_validation->run()) {
+
+            /*
+             * CEP validado quanto ao seu formato
+             * Passamos então para o início da requisição
+             */
+
+            /*
+             * https://viacep.com.br/ws/01001000/json/
+             */
+
+            /*
+             * Formatando o cep de acordo com que é definido pela API ViaCep
+             */
+            $cep = str_replace("-", "", $this->input->post('fornecedor_cep'));
+
+
+            $url = "https://viacep.com.br/ws/";
+            $url .= $cep;
+            $url .= "/json/";
+
+            $cr = curl_init();
+
+            /*
+             * Definino a URL de busca (requisição)
+             */
+            curl_setopt($cr, CURLOPT_URL, $url);
+
+
+
+            curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
+
+
+            $resultado_requisicao = curl_exec($cr);
+
+
+            curl_close($cr);
+
+            /*
+             * Tranformando o resultado em um objeto para facilitar o acesso aos seus atributos
+             */
+            $resultado_requisicao = json_decode($resultado_requisicao);
+            
+
+            /*
+             * Verificamos se o CEP informado é existente,
+             * Caso não existe, retornamos para o javascript que o CEP é inválido
+             * Caso CEP seja existente, retornamos as informações do endereço
+             */
+            if (isset($resultado_requisicao->erro)) {
+
+                $retorno['erro'] = 3;
+                $retorno['fornecedor_cep'] = 'Informe um CEP válido';
+                $retorno['mensagem'] = 'Informe um CEP válido';
+                
+               
+            } else {
+
+                /*
+                 * Sucesso na requisição..... O CEP existe na base do ViaCep
+                 */
+
+                $retorno['erro'] = 0;
+                $retorno['fornecedor_endereco'] = $resultado_requisicao->logradouro;
+                $retorno['fornecedor_bairro'] = $resultado_requisicao->bairro;
+                $retorno['fornecedor_cidade'] = $resultado_requisicao->localidade;
+                $retorno['fornecedor_estado'] = $resultado_requisicao->uf;
+                $retorno['mensagem'] = 'Cep encontrado';
+            }
+        } else {
+
+            /*
+             * Erros de validação
+             */
+            $retorno['erro'] = 3;
+            $retorno['fornecedor_cep'] = form_error('fornecedor_cep', '<div class="text-danger">', '</div>');
+            $retorno['mensagem'] = validation_errors();
+        }
+
+        /*
+         * Retorno o dados contidos no $retorno
+         */
+
+        echo json_encode($retorno);
+}
+    
 }

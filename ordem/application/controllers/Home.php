@@ -35,6 +35,36 @@ class Home extends CI_Controller{
             
             $data['contas_receber_vencidas'] = TRUE;
             $contador_notificacoes ++;
+        } else {
+            $data['contas_receber_vencidas'] = FALSE;
+        }
+        if( $this->home_model->get_contas_pagar_vencidas()){
+            
+            $data['contas_pagar_vencidas'] = TRUE;
+            $contador_notificacoes ++;
+        }else{
+            $data['contas_pagar_vencidas'] = FALSE;
+        }
+        if( $this->home_model->get_contas_pagar_vencem_hoje()){
+            
+            $data['contas_pagar_vencem_hoje'] = TRUE;
+            $contador_notificacoes ++;
+        }else{
+            $data['contas_pagar_vencem_hoje'] = FALSE;  
+        }
+        if( $this->home_model->get_contas_receber_vencem_hoje()){
+            
+            $data['contas_receber_vencem_hoje'] = TRUE;
+            $contador_notificacoes ++;
+        }else{
+            $data['contas_receber_vencem_hoje'] = FALSE;
+        }
+        if( $this->home_model->get_usuarios_desativados()){
+            
+            $data['usuarios_desativados'] = TRUE;
+            $contador_notificacoes ++;
+        }else{
+            $data['usuarios_desativados'] = FALSE;
         }
         
         $data ['contador_notificacoes'] = $contador_notificacoes;

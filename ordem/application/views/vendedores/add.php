@@ -118,6 +118,7 @@
                     <label> CEP </label>
                     <input type="text" class="form-control form-control-user cep " name="vendedor_cep" placeholder="CEP" value="<?php echo set_value('vendedor_cep'); ?>">
                     <?php echo form_error('vendedor_cep','<small class="form-text text-danger">','</small>');?>
+                    <div id="fornecedor_cep"></div>
                 </div>
                 
                 <div class="col-md-5">
